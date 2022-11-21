@@ -4,13 +4,11 @@ public class View_responstitory {
 public void create(){
 	
 }
-public void delete(){
-	
-}
 
 public void update(){
 	
 }
+public void delete() {
 
 }
 
