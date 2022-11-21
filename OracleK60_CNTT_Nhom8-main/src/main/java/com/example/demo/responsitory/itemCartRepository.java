@@ -19,7 +19,8 @@ public class itemCartRepository {
 		
 		if (exsistItemCart != null) {
 			exsistItemCart.setQuantity(exsistItemCart.getQuantity() + item.getQuantity());
-		}else {
+		}
+		else{
 		map.put(item.getId(),item);
 		}
 		
@@ -36,6 +37,7 @@ public class itemCartRepository {
 	}
 
 	public void update( int productId, int quantity) {
+		int count;
 		itemCart item = map.get(productId);
 		
 		item.setQuantity(quantity + item.getQuantity());
