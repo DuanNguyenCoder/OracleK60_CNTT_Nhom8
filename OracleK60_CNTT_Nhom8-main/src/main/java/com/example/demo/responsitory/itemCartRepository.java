@@ -1,7 +1,6 @@
 package com.example.demo.responsitory;
 
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,6 @@ public class itemCartRepository {
 	}
 
 	public void update( int productId, int quantity) {
-		int count;
 		itemCart item = map.get(productId);
 		
 		item.setQuantity(quantity + item.getQuantity());
