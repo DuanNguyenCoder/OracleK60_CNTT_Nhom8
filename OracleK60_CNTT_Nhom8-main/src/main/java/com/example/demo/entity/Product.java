@@ -1,82 +1,95 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
+
 @Table(name ="product")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
-	public float price;
+	public double price;
+	
+	
+	public int quantity;
+	
+	public String description;
 	
 	@Column(name = "productname")
 	public String name;
-	public String description;
-	
-	@ManyToOne
-	@JoinColumn(name = "idcate")
-	public category idCate;
 	
 	@Column(name = "new")
 	public int newP;
 	
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public float getPrice() {
-		return price;
-	}
-	public void setPrice(float price) {
-		this.price = price;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public category getIdCate() {
-		return idCate;
-	}
-	public void setIdCate(category idCate) {
-		this.idCate = idCate;
-	}
-	public int getNewP() {
-		return newP;
-	}
-	public void setNewP(int newP) {
-		this.newP = newP;
-	}
+	@ManyToOne
+	@JoinColumn(name = "idcate")
+	//@JsonBackReference
 	
-	public Product(int id, String name, float price, String description, category idCate, int newP) {
-		super();
-		this.name = name;
-		this.id = id;
-		this.price = price;
-		this.description = description;
-		this.idCate = idCate;
-		this.newP = newP;
-	}
-	public Product() {
-		super();
-	}
+	public detailsCategories idCate;
+
+	
+	@ManyToOne
+	@JoinColumn(name = "idbrand")
+	//@JsonBackReference
+	public brand idBrand;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "iddiscount")
+   // @JsonBackReference
+   
+	public discount idDiscount;
+	
+	
+	@OneToMany(mappedBy = "idProduct" )
+	@JsonManagedReference
+	public List<detailsBill> detailsBill;
+	
+	@OneToMany(mappedBy = "idProduct" )
+	@JsonManagedReference
+	public List<image> image;
+	
+
 }
