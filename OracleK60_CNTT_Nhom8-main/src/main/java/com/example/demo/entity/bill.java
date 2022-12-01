@@ -23,7 +23,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name ="bill")
 public class bill {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
@@ -39,13 +38,15 @@ public class bill {
 	
 	@ManyToOne
 	@JoinColumn(name = "idbank")
+	@JsonBackReference
 	public banking idBank;
 	
 	@ManyToOne
 	@JoinColumn(name = "idcustomer")
+	@JsonBackReference
 	public customer idCustomer;
 	
 	@OneToMany(mappedBy = "idBill")
+	@JsonManagedReference
 	public List<detailsBill> detailsBills;
-	
 }
