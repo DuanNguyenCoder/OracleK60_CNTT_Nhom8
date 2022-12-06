@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 	@NoArgsConstructor
 	@Entity
 	@Table(name = "brand")
+	@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 	public class brand {
 		
 	@Id
@@ -27,6 +28,8 @@ import lombok.NoArgsConstructor;
 	public String name;
 	
 	@OneToMany(mappedBy = "idBrand")
+	//@JsonManagedReference
+	@JsonIgnore
 	public List<Product> product;
 	}
 

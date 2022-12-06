@@ -14,4 +14,9 @@ public interface categoryResponsitory extends  JpaRepository<category, Integer> 
 
 	@Query(value = "select * from categories", nativeQuery = true)
 	public List<category> getall();
+	
+	@Query( value = "select  p.*,i.image  from product p left outer join image i on i.idproduct = p.id"
+			+ "			inner join detailscate d on d.id = p.idcate "
+			+ "			inner join categories c on c.id = d.idcategories and c.id = 3 ",nativeQuery = true)
+	public List<category> getNewProBycate(int id);
 }
